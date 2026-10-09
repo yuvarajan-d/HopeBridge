@@ -1,11 +1,27 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Contact from "./components/Contact";
+import Volunteer from "./components/Volunteer";
+import Donation from "./components/Donation";
 import ProgramCard from "./components/ProgramCard";
 import ImpactStats from "./components/ImpactStats";
 import "./App.css";
 
 function App() {
+  const [showTopButton, setShowTopButton] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+useEffect(() => {
+  const handleScroll = () => {
+    setShowTopButton(window.scrollY > 300);
+  };
+
+  window.addEventListener("scroll", handleScroll);
+
+  return () => {
+    window.removeEventListener("scroll", handleScroll);
+  };
+}, []);
 
   return (
     <div className="app">
@@ -29,7 +45,9 @@ function App() {
           <a href="#about" onClick={() => setMenuOpen(false)}>About Us</a>
           <a href="#programs" onClick={() => setMenuOpen(false)}>Our Causes</a>
           <a href="#impact" onClick={() => setMenuOpen(false)}>Our Impact</a>
-          <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
+          <a href="#contact-us" onClick={() => setMenuOpen(false)}>
+  Contact
+</a>
         </nav>
 
         <a href="#donate" className="nav-donate">
@@ -107,6 +125,47 @@ function App() {
         </section>
 
         
+<section className="about-section">
+  <div className="about-image">
+    <img
+      src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=900&q=85"
+      alt="Volunteers working together to support their community"
+    />
+    <div className="about-image-note">
+      <span>♥</span>
+      <p>Kindness creates lasting change.</p>
+    </div>
+  </div>
+
+  <div className="about-content">
+    <p className="eyebrow">GET TO KNOW US</p>
+    <h2>
+      We Believe Every Act of Kindness <span>Matters</span>
+    </h2>
+    <p>
+      At HopeBridge, we believe everyone deserves access to food,
+      education, clean water, and opportunities for a better life.
+    </p>
+    <p>
+      Our mission is to connect people who want to help with
+      communities that need support. Together, we can turn
+      compassion into meaningful action.
+    </p>
+
+    <div className="about-points">
+      <p>♥ Supporting children and families</p>
+      <p>♥ Promoting education and wellbeing</p>
+      <p>♥ Building stronger communities</p>
+    </div>
+
+    <a href="#programs" className="btn btn-primary">
+      Explore Our Causes →
+    </a>
+  </div>
+</section>
+
+
+        
 <section className="programs-section" id="programs">
   <div className="section-heading">
     <p className="eyebrow">WHERE YOUR HELP GOES</p>
@@ -152,23 +211,58 @@ function App() {
 
         <ImpactStats />
 
-        <section className="donate-section" id="donate">
-          <p className="eyebrow">MAKE A DIFFERENCE</p>
-          <h2>Your kindness can change a life.</h2>
-          <a href="#contact" className="btn btn-primary">
-            Become a Supporter ♥
-          </a>
-        </section>
+       <Donation />
+       <Volunteer />
+       <Contact />
+      
+<footer className="footer" id="contact">
+  <div className="footer-container">
+    <div className="footer-about">
+      <h2>Hope<span>Bridge</span></h2>
+      <p>
+        Building a better tomorrow by connecting kind hearts
+        with communities that need support.
+      </p>
+      <p className="footer-tagline">
+        Small acts. Big changes. Better futures.
+      </p>
+    </div>
 
-        <footer id="contact">
-          <a href="#home" className="logo">
-            Hope<span>Bridge</span> ♥
-          </a>
-          <p>Building a brighter tomorrow, together.</p>
-          <p className="copyright">
-            © 2026 HopeBridge. Made with love for humanity.
-          </p>
-        </footer>
+    <div className="footer-links">
+      <h3>Quick Links</h3>
+      <a href="#home">Home</a>
+      <a href="#about">About Us</a>
+      <a href="#programs">Our Causes</a>
+      <a href="#impact">Our Impact</a>
+      <a href="#donate">Donate</a>
+    </div>
+
+    <div className="footer-contact">
+      <h3>Contact Us</h3>
+      <p>✉️ hopebridge@example.com</p>
+      <p>📍 Chennai, Tamil Nadu, India</p>
+      <p>🤝 Join us in making a difference.</p>
+    </div>
+  </div>
+
+  <div className="footer-bottom">
+    <p>
+      © {new Date().getFullYear()} HopeBridge. Made with care for a better world.
+    </p>
+  </div>
+</footer>
+{showTopButton && (
+  <button
+    className="back-to-top"
+    onClick={() =>
+      window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+    aria-label="Back to top"
+  >
+    ↑
+  </button>
+)}
+
       </main>
     </div>
   );

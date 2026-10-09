@@ -24,3 +24,22 @@ select {
 img {
   max-width: 100%;
 }
+
+/* Smooth scrolling for the entire website */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+/* Keep sections visible below the sticky navbar */
+section[id],
+footer[id] {
+  scroll-margin-top: 90px;
+}
+
+/* Improve keyboard accessibility */
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid #f4a261;
+  outline-offset: 4px;
+}
